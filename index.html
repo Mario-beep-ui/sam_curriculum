@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samantha Torres López - Abogada</title>
+  <style>
+    :root {
+      --color1: #FCEBE3;
+      --color2: #F7DAD8;
+      --color3: #FAE9CF;
+      --color4: #C1B8E1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Georgia', serif;
+    }
+
+    body {
+      background: var(--color1);
+      color: #3A2E39;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .section {
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 1s, opacity 1s;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: linear-gradient(45deg, var(--color2), var(--color3));
+      transform: rotate(-5deg) translateY(-50%);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.8s;
+    }
+
+    .section.active::before {
+      opacity: 0.3;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: all 1s ease-out;
+    }
+
+    .section.active .header {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .name {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 600;
+      color: #5C4B51;
+      margin-bottom: 1rem;
+    }
+
+    .position {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      color: var(--color4);
+      margin-bottom: 1.5rem;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 1s 0.3s;
+      width: 90%;
+    }
+
+    .section.active .content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1rem;
+      margin: 1rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--color4);
+    }
+
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 10px;
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: all 0.8s;
+    }
+
+    .section.active .timeline-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-item i {
+      font-size: 1.4rem;
+      color: var(--color4);
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 1.5rem;
+      }
+
+      .name {
+        line-height: 1.1;
+        margin-bottom: 0.8rem;
+      }
+
+      .timeline-item {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-item {
+        font-size: 1rem;
+      }
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 1000;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--color4);
+      border-radius: 50%;
+      background: transparent;
+      transition: all 0.5s;
+    }
+
+    .progress-dot.active {
+      background: var(--color4);
+    }
+
+    .quote {
+      font-size: 1.2rem;
+      padding: 1.5rem;
+      border-left: 3px solid var(--color4);
+      background: rgba(255,255,255,0.9);
+      margin: 1rem 0;
+    }
+
+    /* Nueva animación inicial */
+    #inicio {
+      animation: initialLoad 1s forwards;
+    }
+
+    @keyframes initialLoad {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="progress-bar">
+    <div class="progress-dot active"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+  </div>
+
+  <section class="section" id="inicio">
+    <div class="header">
+      <h1 class="name">SAMANTHA TORRES LÓPEZ</h1>
+      <div class="position">Licenciada en Derecho</div>
+    </div>
+    <div class="content">
+      <p class="quote">"La justicia es la constante y perpetua voluntad de dar a cada uno lo suyo" - Ulpiano</p>
+    </div>
+  </section>
+
+  <section class="section" id="formacion">
+    <div class="content">
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>🎓 Universidad CUDEM Guadalajara</h3>
+          <p>Licenciatura en Derecho (2019-2023)</p>
+        </div>
+        <div class="timeline-item">
+          <h3>⚖️ Prácticas Profesionales</h3>
+          <p>Consultores C&T Abogados (2014-2025)</p>
+        </div>
+        <div class="timeline-item">
+          <h3>💼 Experiencia Laboral</h3>
+          <p>Abogada Junior en Consultores C&T Abogados (2024-Actual)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="aspiracones">
+    <div class="content">
+      <div class="quote">
+        <h2>Mi Pasión por el Derecho</h2>
+        <p>Aspiro a especializarme en Derecho Internacional y contribuir a marcos jurídicos más inclusivos. Mi objetivo es combinar la práctica legal con la docencia universitaria.</p>
+
+        <h3 style="margin-top: 1.5rem;">Contacto</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+52 33 2841 2778</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>samanthalopeztorres26@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fab fa-linkedin"></i>
+            <span>Samantha Torres López</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const dots = document.querySelectorAll('.progress-dot');
+    let currentSection = 0;
+    let isScrolling = false;
+
+    // Función para reiniciar animaciones
+    function resetAnimations() {
+      sections.forEach(section => {
+        section.classList.remove('active');
+        section.style.animation = 'none';
+        section.offsetHeight; // Trigger reflow
+        section.style.animation = '';
+      });
+      
+      document.getElementById('inicio').classList.add('active');
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[0].classList.add('active');
+    }
+
+    function handleScroll() {
+      if (isScrolling) return;
+      isScrolling = true;
+
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.3 && rect.bottom >= window.innerHeight * 0.3) {
+          sections.forEach(s => s.classList.remove('active'));
+          section.classList.add('active');
+          currentSection = index;
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSection);
+      });
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 100);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('touchmove', handleScroll);
+
+    // Evento de carga
+    window.addEventListener('load', () => {
+      resetAnimations();
+      window.scrollTo(0, 0);
+      
+      // Forzar animación inicial después de breve retardo
+      setTimeout(() => {
+        document.getElementById('inicio').classList.add('active');
+      }, 100);
+    });
+
+    // Reiniciar al hacer refresh
+    window.onbeforeunload = function() {
+      window.scrollTo(0, 0);
+    };
+  </script>
+</body>
+</html>
