@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Samantha Torres López - Abogada</title>
   <style>
     :root {
@@ -168,8 +168,8 @@
     .nav-button {
       position: fixed;
       bottom: 2rem;
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       background: var(--color4);
       border: none;
       border-radius: 50%;
@@ -189,7 +189,7 @@
 
     .nav-button i {
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
 
     .nav-next {
@@ -201,16 +201,88 @@
     }
 
     @media (max-width: 768px) {
+      .section {
+        padding: 1.5rem 1rem;
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .name {
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+      }
+
+      .position {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .content {
+        width: 100%;
+        padding: 0 1rem;
+        transform: none;
+      }
+
+      .timeline {
+        padding-left: 0.5rem;
+      }
+
+      .timeline-item {
+        padding: 1rem;
+        margin-bottom: 1.2rem;
+        transform: none;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-item {
+        font-size: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .quote {
+        font-size: 1.1rem;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+
       .nav-button {
-        bottom: 1rem;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
+        bottom: 1.5rem;
       }
-      .nav-next {
-        right: 1rem;
+
+      .nav-button i {
+        font-size: 2rem;
       }
-      .nav-prev {
-        left: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .position {
+        font-size: 1.2rem;
+      }
+
+      .timeline-item h3 {
+        font-size: 1.2rem;
+      }
+
+      .timeline-item p {
+        font-size: 0.95rem;
+      }
+
+      .quote h2 {
+        font-size: 1.3rem;
+      }
+
+      .contact-item {
+        font-size: 0.95rem;
       }
     }
 
@@ -263,7 +335,7 @@
         </div>
         <div class="timeline-item">
           <h3>⚖️ Prácticas Profesionales</h3>
-          <p>Consultores C&T Abogados (2024-2025)</p>
+          <p>Consultores C&T Abogados (2014-2025)</p>
         </div>
         <div class="timeline-item">
           <h3>💼 Experiencia Laboral</h3>
@@ -309,7 +381,7 @@
     const prevBtn = document.getElementById('prevBtn');
     let currentSection = 'inicio';
 
-    // Bloquear eventos de scroll
+    // Bloquear scroll
     document.body.addEventListener('wheel', preventScroll, { passive: false });
     document.body.addEventListener('touchmove', preventScroll, { passive: false });
 
@@ -349,10 +421,20 @@
       }
     }
 
-    // Inicialización
+    // Ajustar altura en móviles
+    function adjustMobileHeight() {
+      if(window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelectorAll('.section').forEach(section => {
+          section.style.minHeight = window.innerHeight + 'px';
+        });
+      }
+    }
+
+    window.addEventListener('resize', adjustMobileHeight);
     window.addEventListener('load', () => {
       updateButtons();
       sections.inicio.classList.add('active');
+      adjustMobileHeight();
     });
   </script>
 </body>
