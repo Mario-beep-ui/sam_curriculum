@@ -19,11 +19,15 @@
       font-family: 'Georgia', serif;
     }
 
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
     body {
       background: var(--color1);
       color: #3A2E39;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
     }
 
     .section {
@@ -32,9 +36,19 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
+      position: fixed;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      transition: transform 1s, opacity 1s;
+      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                 opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .section.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section::before {
@@ -46,7 +60,7 @@
       transform: rotate(-5deg) translateY(-50%);
       z-index: -1;
       opacity: 0;
-      transition: opacity 0.8s;
+      transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .section.active::before {
@@ -58,7 +72,7 @@
       margin-bottom: 2rem;
       transform: translateX(-100%);
       opacity: 0;
-      transition: all 1s ease-out;
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .section.active .header {
@@ -84,7 +98,7 @@
       margin: 0 auto;
       transform: translateY(50px);
       opacity: 0;
-      transition: all 1s 0.3s;
+      transition: all 1s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       width: 90%;
     }
 
@@ -116,7 +130,7 @@
       border-radius: 10px;
       transform: translateX(-50px);
       opacity: 0;
-      transition: all 0.8s;
+      transition: all 0.85s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .section.active .timeline-item {
@@ -142,49 +156,6 @@
       color: var(--color4);
     }
 
-    @media (max-width: 768px) {
-      .section {
-        padding: 1.5rem;
-      }
-
-      .name {
-        line-height: 1.1;
-        margin-bottom: 0.8rem;
-      }
-
-      .timeline-item {
-        padding: 0.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .contact-item {
-        font-size: 1rem;
-      }
-    }
-
-    .progress-bar {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      z-index: 1000;
-    }
-
-    .progress-dot {
-      width: 12px;
-      height: 12px;
-      border: 2px solid var(--color4);
-      border-radius: 50%;
-      background: transparent;
-      transition: all 0.5s;
-    }
-
-    .progress-dot.active {
-      background: var(--color4);
-    }
-
     .quote {
       font-size: 1.2rem;
       padding: 1.5rem;
@@ -193,32 +164,87 @@
       margin: 1rem 0;
     }
 
-    /* Nueva animación inicial */
-    #inicio {
-      animation: initialLoad 1s forwards;
+    /* Botones de navegación */
+    .nav-button {
+      position: fixed;
+      bottom: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--color4);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      z-index: 1000;
     }
 
-    @keyframes initialLoad {
+    .nav-button:hover {
+      transform: scale(1.1);
+      background: #A89DC9;
+    }
+
+    .nav-button i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .nav-next {
+      right: 2rem;
+    }
+
+    .nav-prev {
+      left: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-button {
+        bottom: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+      .nav-next {
+        right: 1rem;
+      }
+      .nav-prev {
+        left: 1rem;
+      }
+    }
+
+    #inicio {
+      animation: initialEntrance 1.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes initialEntrance {
       0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(60px) scale(0.98);
+      }
+      50% {
+        transform: translateY(0) scale(1.02);
       }
       100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="progress-bar">
-    <div class="progress-dot active"></div>
-    <div class="progress-dot"></div>
-    <div class="progress-dot"></div>
-  </div>
+  <!-- Botones de navegación -->
+  <button class="nav-button nav-next" id="nextBtn">
+    <i class="fas fa-arrow-right"></i>
+  </button>
+  <button class="nav-button nav-prev" id="prevBtn">
+    <i class="fas fa-arrow-left"></i>
+  </button>
 
-  <section class="section" id="inicio">
+  <!-- Secciones -->
+  <section class="section active" id="inicio">
     <div class="header">
       <h1 class="name">SAMANTHA TORRES LÓPEZ</h1>
       <div class="position">Licenciada en Derecho</div>
@@ -237,7 +263,7 @@
         </div>
         <div class="timeline-item">
           <h3>⚖️ Prácticas Profesionales</h3>
-          <p>Consultores C&T Abogados (2014-2025)</p>
+          <p>Consultores C&T Abogados (2024-2025)</p>
         </div>
         <div class="timeline-item">
           <h3>💼 Experiencia Laboral</h3>
@@ -273,65 +299,61 @@
   </section>
 
   <script>
-    const sections = document.querySelectorAll('.section');
-    const dots = document.querySelectorAll('.progress-dot');
-    let currentSection = 0;
-    let isScrolling = false;
-
-    // Función para reiniciar animaciones
-    function resetAnimations() {
-      sections.forEach(section => {
-        section.classList.remove('active');
-        section.style.animation = 'none';
-        section.offsetHeight; // Trigger reflow
-        section.style.animation = '';
-      });
-      
-      document.getElementById('inicio').classList.add('active');
-      dots.forEach(dot => dot.classList.remove('active'));
-      dots[0].classList.add('active');
-    }
-
-    function handleScroll() {
-      if (isScrolling) return;
-      isScrolling = true;
-
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.3 && rect.bottom >= window.innerHeight * 0.3) {
-          sections.forEach(s => s.classList.remove('active'));
-          section.classList.add('active');
-          currentSection = index;
-        }
-      });
-
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentSection);
-      });
-
-      setTimeout(() => {
-        isScrolling = false;
-      }, 100);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchmove', handleScroll);
-
-    // Evento de carga
-    window.addEventListener('load', () => {
-      resetAnimations();
-      window.scrollTo(0, 0);
-      
-      // Forzar animación inicial después de breve retardo
-      setTimeout(() => {
-        document.getElementById('inicio').classList.add('active');
-      }, 100);
-    });
-
-    // Reiniciar al hacer refresh
-    window.onbeforeunload = function() {
-      window.scrollTo(0, 0);
+    const sections = {
+      inicio: document.getElementById('inicio'),
+      formacion: document.getElementById('formacion'),
+      aspiracones: document.getElementById('aspiracones')
     };
+
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    let currentSection = 'inicio';
+
+    // Bloquear eventos de scroll
+    document.body.addEventListener('wheel', preventScroll, { passive: false });
+    document.body.addEventListener('touchmove', preventScroll, { passive: false });
+
+    function preventScroll(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    function showSection(sectionId) {
+      sections[currentSection].classList.remove('active');
+      sections[sectionId].classList.add('active');
+      currentSection = sectionId;
+      updateButtons();
+    }
+
+    function updateButtons() {
+      switch(currentSection) {
+        case 'inicio':
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'flex';
+          nextBtn.onclick = () => showSection('formacion');
+          break;
+
+        case 'formacion':
+          prevBtn.style.display = 'flex';
+          nextBtn.style.display = 'flex';
+          prevBtn.onclick = () => showSection('inicio');
+          nextBtn.onclick = () => showSection('aspiracones');
+          break;
+
+        case 'aspiracones':
+          prevBtn.style.display = 'flex';
+          nextBtn.style.display = 'none';
+          prevBtn.onclick = () => showSection('formacion');
+          break;
+      }
+    }
+
+    // Inicialización
+    window.addEventListener('load', () => {
+      updateButtons();
+      sections.inicio.classList.add('active');
+    });
   </script>
 </body>
 </html>
